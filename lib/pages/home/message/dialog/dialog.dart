@@ -55,9 +55,8 @@ class MyDialogState extends State<MyDialog> {
                 });
               },
               textAlign: TextAlign.start,
-              autofocus: true,
               controller: _inputController,
             ),
-            body: PersonalList(widget.chatData.messages)));
+            body: PersonalList(chatData: widget.chatData)));
   }
 }

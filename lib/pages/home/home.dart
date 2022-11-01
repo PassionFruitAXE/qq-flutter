@@ -8,7 +8,7 @@ import '../../../utils/user.dart';
 class Home extends StatefulWidget {
   final User? myAccount;
 
-  const Home(this.myAccount, {super.key});
+  const Home({super.key, required this.myAccount});
 
   @override
   HomePageState createState() => HomePageState();
@@ -41,15 +41,16 @@ class HomePageState extends State<Home> {
 
   // 当前页下标
   int currentIndex = 0;
-  //
+
+  // TabBar底部导航
   final pages = [
-    Message(myAccount),
-    Contacts(myAccount),
-    SmallWorld(myAccount),
-    Status(myAccount)
+    Message(myAccount: myAccount),
+    Contacts(myAccount: myAccount),
+    SmallWorld(myAccount: myAccount),
+    Status(myAccount: myAccount)
   ];
 
-  // 修改当前页
+  // 修改当前导航
   void _changePage(int index) {
     if (index != currentIndex) {
       setState(() {

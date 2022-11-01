@@ -4,7 +4,7 @@ import '../../../../utils/user.dart';
 class Contacts extends StatefulWidget {
   final User? myAccount;
 
-  const Contacts(this.myAccount, {super.key});
+  const Contacts( {super.key, required this.myAccount});
 
   @override
   ContactsState createState() => ContactsState();

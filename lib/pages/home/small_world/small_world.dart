@@ -8,7 +8,7 @@ import '../../../components/news_details.dart';
 class SmallWorld extends StatefulWidget {
   final User? myAccount;
 
-  const SmallWorld(this.myAccount, {super.key});
+  const SmallWorld({super.key, required this.myAccount});
 
   @override
   SmallWorldState createState() => SmallWorldState();
@@ -55,9 +55,6 @@ class SmallWorldState extends State<SmallWorld> {
         home: Scaffold(
           appBar: AppBar(
             title: const Text("小世界"),
-            leading: IconButton(
-                icon: const Icon(Icons.assistant_photo_outlined),
-                onPressed: () {}),
           ),
           body: ListView.builder(
               itemCount: _hotReviews.length,
@@ -68,31 +65,37 @@ class SmallWorldState extends State<SmallWorld> {
                     child: Builder(
                         builder: (context) => InkWell(
                             onTap: () {},
-                            child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Padding(
-                                      padding: const EdgeInsets.all(10.0),
-                                      child: Text(
-                                          _hotReviews[index].hotword.toString(),
-                                          style: const TextStyle(
-                                              fontSize: 16.0,
-                                              fontWeight: FontWeight.bold))),
-                                  Padding(
-                                      padding: const EdgeInsets.only(
-                                          left: 10.0, right: 10.0),
-                                      child: Text(
-                                          '标签：${_hotReviews[index].hottag}',
-                                          style:
-                                              const TextStyle(fontSize: 12.0))),
-                                  Padding(
-                                      padding: const EdgeInsets.only(
-                                          left: 10.0, right: 10.0),
-                                      child: Text(
-                                          '热度：${_hotReviews[index].hotwordnum}',
-                                          style:
-                                              const TextStyle(fontSize: 12.0)))
-                                ]))));
+                            child: Padding(
+                                padding: const EdgeInsets.all(10.0),
+                                child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Padding(
+                                          padding: const EdgeInsets.all(10.0),
+                                          child: Text(
+                                              _hotReviews[index]
+                                                  .hotword
+                                                  .toString(),
+                                              style: const TextStyle(
+                                                  fontSize: 16.0,
+                                                  fontWeight:
+                                                      FontWeight.bold))),
+                                      Padding(
+                                          padding: const EdgeInsets.only(
+                                              left: 10.0, right: 10.0),
+                                          child: Text(
+                                              '标签：${_hotReviews[index].hottag}',
+                                              style: const TextStyle(
+                                                  fontSize: 12.0))),
+                                      Padding(
+                                          padding: const EdgeInsets.only(
+                                              left: 10.0, right: 10.0),
+                                          child: Text(
+                                              '热度：${_hotReviews[index].hotwordnum}',
+                                              style: const TextStyle(
+                                                  fontSize: 12.0)))
+                                    ])))));
               }),
         ));
   }

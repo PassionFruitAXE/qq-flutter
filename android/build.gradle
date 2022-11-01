@@ -1,8 +1,12 @@
 buildscript {
     ext.kotlin_version = '1.6.10'
     repositories {
-        google()
+//        google()
+        maven { url 'https://maven.aliyun.com/repository/google' }
         mavenCentral()
+        maven { url 'https://maven.aliyun.com/repository/jcenter' }
+//        maven { url 'http://maven.aliyun.com/nexus/content/groups/public' }
+//        maven { url 'http://download.flutter.io' }
     }
 
     dependencies {
@@ -13,8 +17,11 @@ buildscript {
 
 allprojects {
     repositories {
-        google()
+//        google()
+        maven { url 'https://maven.aliyun.com/repository/google' }
         mavenCentral()
+        maven { url 'https://maven.aliyun.com/repository/jcenter' }
+//        maven { url 'http://maven.aliyun.com/nexus/content/groups/public' }
     }
 }
 

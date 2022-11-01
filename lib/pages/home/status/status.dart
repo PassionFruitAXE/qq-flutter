@@ -7,7 +7,7 @@ import '../../../components/news_details.dart';
 class Status extends StatefulWidget {
   final User? myAccount;
 
-  const Status(this.myAccount, {super.key});
+  const Status({super.key, required this.myAccount});
 
   @override
   StatusState createState() => StatusState();
@@ -49,7 +49,7 @@ class StatusState extends State<Status> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-        title: "",
+        title: "动态",
         home: Scaffold(
           appBar: AppBar(
             title: const Text("动态"),
@@ -76,12 +76,12 @@ class StatusState extends State<Status> {
                             child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  Image.network(
-                                      (_news[index].picUrl as String)[4] == "s"
-                                          ? (_news[index].picUrl as String)
-                                              .replaceFirst('s', '')
-                                          : (_news[index].picUrl as String),
-                                      fit: BoxFit.fitWidth),
+                                  Center(
+                                      child: FadeInImage.assetNetwork(
+                                          placeholder: "images/加载中.png",
+                                          image:
+                                              (_news[index].picUrl as String),
+                                          fit: BoxFit.fitWidth)),
                                   Padding(
                                       padding: const EdgeInsets.all(10.0),
                                       child: Text(_news[index].title.toString(),
@@ -89,8 +89,7 @@ class StatusState extends State<Status> {
                                               fontSize: 16.0,
                                               fontWeight: FontWeight.bold))),
                                   Padding(
-                                      padding: const EdgeInsets.only(
-                                          left: 10.0, right: 10.0),
+                                      padding: const EdgeInsets.all(10.0),
                                       child: Text('实践：${_news[index].ctime}',
                                           style:
                                               const TextStyle(fontSize: 12.0)))

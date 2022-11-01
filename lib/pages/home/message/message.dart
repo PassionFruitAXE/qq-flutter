@@ -2,12 +2,13 @@ import 'package:flutter/material.dart';
 
 import '../../../components/diolog_list.dart';
 import '../../../../utils/user.dart';
-import '../../login/personal/personal.dart';
+import '../personal/personal.dart';
 
 class Message extends StatelessWidget {
   final User? myAccount;
 
-  const Message(this.myAccount, {super.key});
+  const Message({super.key, required this.myAccount});
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -21,14 +22,14 @@ class Message extends StatelessWidget {
                   width: 100,
                   height: 100,
                   child: const CircleAvatar(
-                      backgroundImage: AssetImage('images/avatar.jpg')),
+                      backgroundImage: AssetImage('images/头像2.jpg')),
                 ),
                 onPressed: () async {
                   await Navigator.push(
                     context,
                     MaterialPageRoute(
                       builder: (context) {
-                        return Personal(myAccount);
+                        return Personal(myAccount: myAccount);
                       },
                     ),
                   );
@@ -50,7 +51,7 @@ class Message extends StatelessWidget {
                   ),
                 ),
               ]),
-          body: DiaLogList(myAccount)),
+          body: DiaLogList(myAccount: myAccount)),
     );
   }
 }

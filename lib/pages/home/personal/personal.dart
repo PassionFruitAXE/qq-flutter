@@ -5,7 +5,7 @@ import '../../../components/personal_list.dart';
 class Personal extends StatelessWidget {
   final User? myAccount;
 
-  const Personal(this.myAccount, {super.key});
+  const Personal({super.key, required this.myAccount});
 
   @override
   Widget build(BuildContext context) {
