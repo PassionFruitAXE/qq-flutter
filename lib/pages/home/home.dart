@@ -44,8 +44,8 @@ class HomePageState extends State<Home> {
   //
   final pages = [
     Message(myAccount),
-    SmallWorld(myAccount),
     Contacts(myAccount),
+    SmallWorld(myAccount),
     Status(myAccount)
   ];
 

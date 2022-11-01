@@ -6,6 +6,7 @@ import '../../../components/news_details.dart';
 
 class Status extends StatefulWidget {
   final User? myAccount;
+
   const Status(this.myAccount, {super.key});
 
   @override
@@ -16,9 +17,7 @@ class StatusState extends State<Status> {
   List<New> _news = [];
   bool _cancelConnect = false;
 
-  @override
-  void initState() {
-    super.initState();
+  void getNews() {
     getGeneralNews()
         .then((datas) {
           if (!_cancelConnect) {
@@ -42,39 +41,61 @@ class StatusState extends State<Status> {
   }
 
   @override
+  void initState() {
+    super.initState();
+    getNews();
+  }
+
+  @override
   Widget build(BuildContext context) {
-    return Container(
-        child: ListView.builder(
-            itemCount: _news.length,
-            itemBuilder: (BuildContext context, int index) {
-              return Card(
-                  color: Colors.grey[250],
-                  elevation: 5.0,
-                  child: Builder(
-                      builder: (context) => InkWell(
-                          onTap: () =>
-                              Navigator.of(context).push(MaterialPageRoute(
-                                  builder: (content) => NewsDetail(
-                                        url: _news[index].url.toString(),
-                                        title: _news[index].title.toString(),
-                                      ))),
-                          child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Image.network(_news[index].picUrl as String,
-                                    fit: BoxFit.fitWidth),
-                                Padding(
-                                    padding: const EdgeInsets.all(10.0),
-                                    child: Text(_news[index].title.toString(),
-                                        style: const TextStyle(
-                                            fontSize: 16.0,
-                                            fontWeight: FontWeight.bold))),
-                                Padding(
-                                    padding: const EdgeInsets.only(
-                                        left: 10.0, right: 10.0),
-                                    child: Text('实践：${_news[index].ctime}',
-                                        style: const TextStyle(fontSize: 12.0)))
-                              ]))));
-            }));
+    return MaterialApp(
+        title: "",
+        home: Scaffold(
+          appBar: AppBar(
+            title: const Text("动态"),
+            leading: IconButton(
+                icon: const Icon(Icons.assistant_photo_outlined),
+                onPressed: () {
+                  getNews();
+                }),
+          ),
+          body: ListView.builder(
+              itemCount: _news.length,
+              itemBuilder: (BuildContext context, int index) {
+                return Card(
+                    color: Colors.grey[250],
+                    elevation: 5.0,
+                    child: Builder(
+                        builder: (context) => InkWell(
+                            onTap: () =>
+                                Navigator.of(context).push(MaterialPageRoute(
+                                    builder: (content) => NewsDetail(
+                                          url: _news[index].url.toString(),
+                                          title: _news[index].title.toString(),
+                                        ))),
+                            child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Image.network(
+                                      (_news[index].picUrl as String)[4] == "s"
+                                          ? (_news[index].picUrl as String)
+                                              .replaceFirst('s', '')
+                                          : (_news[index].picUrl as String),
+                                      fit: BoxFit.fitWidth),
+                                  Padding(
+                                      padding: const EdgeInsets.all(10.0),
+                                      child: Text(_news[index].title.toString(),
+                                          style: const TextStyle(
+                                              fontSize: 16.0,
+                                              fontWeight: FontWeight.bold))),
+                                  Padding(
+                                      padding: const EdgeInsets.only(
+                                          left: 10.0, right: 10.0),
+                                      child: Text('实践：${_news[index].ctime}',
+                                          style:
+                                              const TextStyle(fontSize: 12.0)))
+                                ]))));
+              }),
+        ));
   }
 }
