@@ -10,8 +10,10 @@ class Login extends StatefulWidget {
 }
 
 class LoginState extends State<Login> {
-  final TextEditingController _usernameController = TextEditingController();
-  final TextEditingController _passwordController = TextEditingController();
+  final TextEditingController _usernameController =
+      TextEditingController(text: "12345678");
+  final TextEditingController _passwordController =
+      TextEditingController(text: "87654321");
 
   // 密码是否可见
   bool _isVisible = false;
