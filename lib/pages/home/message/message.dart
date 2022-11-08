@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../../../../model/user.dart';
+import '../../../vendor/sqflite/database.dart';
 import '../personal/personal.dart';
 import 'dialog_list/dialog_list.dart';
 

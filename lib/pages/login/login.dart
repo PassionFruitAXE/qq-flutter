@@ -5,8 +5,8 @@ import 'package:qq_for_flutter/pages/login/register/register.dart';
 import 'package:qq_for_flutter/vendor/shared_preferences/storage.dart';
 
 import '../home/home.dart';
-import '../../../model/user.dart';
 import '../../utils/global_message.dart';
+import '../../vendor/sqflite/database.dart';
 
 class Login extends StatefulWidget {
   final User? cacheUser;
@@ -35,7 +35,7 @@ class LoginState extends State<Login> {
       _usernameController.text = widget.cacheUser?.getUsername;
       _passwordController.text = widget.cacheUser?.getPassword;
     } else {
-          () async {
+      () async {
         User? cacheAccount = await getCacheAccount();
         if (cacheAccount != null) {
           _usernameController.text = cacheAccount.getUsername;
@@ -78,7 +78,7 @@ class LoginState extends State<Login> {
             body: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
-                  const Image(image: AssetImage('images/QQ.jpg'), width: 120.0),
+                  const Image(image: AssetImage('images/QQ.png'), width: 120.0),
                   Padding(
                       padding: const EdgeInsets.only(left: 30.0, right: 30.0),
                       child: Column(
@@ -93,14 +93,14 @@ class LoginState extends State<Login> {
                                 filled: true,
                                 enabledBorder: OutlineInputBorder(
                                   borderSide:
-                                  BorderSide(color: Color(0x00FF0000)),
+                                      BorderSide(color: Color(0x00FF0000)),
                                   borderRadius: BorderRadius.all(
                                     Radius.circular(100),
                                   ),
                                 ),
                                 focusedBorder: OutlineInputBorder(
                                   borderSide:
-                                  BorderSide(color: Color(0x00000000)),
+                                      BorderSide(color: Color(0x00000000)),
                                   borderRadius: BorderRadius.all(
                                     Radius.circular(100),
                                   ),
@@ -121,14 +121,14 @@ class LoginState extends State<Login> {
                                 filled: true,
                                 enabledBorder: const OutlineInputBorder(
                                   borderSide:
-                                  BorderSide(color: Color(0x00FF0000)),
+                                      BorderSide(color: Color(0x00FF0000)),
                                   borderRadius: BorderRadius.all(
                                     Radius.circular(100),
                                   ),
                                 ),
                                 focusedBorder: const OutlineInputBorder(
                                   borderSide:
-                                  BorderSide(color: Color(0x00000000)),
+                                      BorderSide(color: Color(0x00000000)),
                                   borderRadius: BorderRadius.all(
                                     Radius.circular(100),
                                   ),
@@ -136,7 +136,7 @@ class LoginState extends State<Login> {
                                 contentPadding: const EdgeInsets.all(25),
                                 prefixIcon: IconButton(
                                   icon:
-                                  const Icon(Icons.remove_red_eye_outlined),
+                                      const Icon(Icons.remove_red_eye_outlined),
                                   onPressed: () {
                                     setState(() {
                                       _isVisible = !_isVisible;
@@ -214,8 +214,8 @@ class LoginState extends State<Login> {
                                 onPressed: () async {
                                   await Navigator.push(context,
                                       MaterialPageRoute(builder: (context) {
-                                        return const Register();
-                                      }));
+                                    return const Register();
+                                  }));
                                 },
                                 child: const Text("注册账号",
                                     style: TextStyle(

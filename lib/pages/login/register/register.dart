@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../../../model/user.dart';
+import '../../../vendor/sqflite/database.dart';
 import '../login.dart';
 
 class Register extends StatefulWidget {
@@ -68,7 +68,7 @@ class RegisterState extends State<Register> {
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
                       const Image(
-                          image: AssetImage('images/QQ.jpg'), width: 120.0),
+                          image: AssetImage('images/QQ.png'), width: 120.0),
                       Padding(
                           padding:
                               const EdgeInsets.only(left: 30.0, right: 30.0),

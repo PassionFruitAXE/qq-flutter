@@ -2,11 +2,11 @@ import 'package:flutter/material.dart';
 import 'pages/login/login.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(const QQApp());
 }
 
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+class QQApp extends StatelessWidget {
+  const QQApp({super.key});
 
   // This widget is the root of your application.
   @override
@@ -16,6 +16,6 @@ class MyApp extends StatelessWidget {
         theme: ThemeData(
           primarySwatch: Colors.blue,
         ),
-        home: Scaffold(body: Login()));
+        home: const Scaffold(body: Login()));
   }
 }

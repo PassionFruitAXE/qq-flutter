@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
+import '../../vendor/sqflite/database.dart';
 import 'message/message.dart';
 import 'small_world/small_world.dart';
 import 'contacts/contacts.dart';
 import 'status/status.dart';
-import '../../../model/user.dart';
 
 class Home extends StatefulWidget {
   final User? myAccount;
@@ -42,14 +42,6 @@ class HomePageState extends State<Home> {
   // 当前页下标
   int currentIndex = 0;
 
-  // TabBar底部导航
-  final pages = [
-    Message(myAccount: myAccount),
-    Contacts(myAccount: myAccount),
-    SmallWorld(myAccount: myAccount),
-    Status(myAccount: myAccount)
-  ];
-
   // 修改当前导航
   void _changePage(int index) {
     if (index != currentIndex) {
@@ -61,6 +53,13 @@ class HomePageState extends State<Home> {
 
   @override
   Widget build(BuildContext context) {
+    // TabBar底部导航
+    final pages = [
+      Message(myAccount: widget.myAccount),
+      Contacts(myAccount: widget.myAccount),
+      SmallWorld(myAccount: widget.myAccount),
+      Status(myAccount: widget.myAccount)
+    ];
     return MaterialApp(
       title: "QQ",
       home: Scaffold(
