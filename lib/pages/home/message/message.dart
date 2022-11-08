@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
-
-import '../../../components/diolog_list.dart';
 import '../../../../model/user.dart';
 import '../personal/personal.dart';
+import 'dialog_list/dialog_list.dart';
 
 class Message extends StatelessWidget {
   final User? myAccount;

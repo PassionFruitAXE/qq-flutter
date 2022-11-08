@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:qq_for_flutter/api/sqflite/account.dart';
-import 'package:qq_for_flutter/pages/login/register.dart';
+import 'package:qq_for_flutter/pages/login/register/register.dart';
 import 'package:qq_for_flutter/vendor/shared_preferences/storage.dart';
 import '../home/home.dart';
 import '../../../model/user.dart';

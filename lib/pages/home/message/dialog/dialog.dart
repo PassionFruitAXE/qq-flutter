@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../../../../components/message_list.dart';
+import 'message_list/message_list.dart';
 import '../../../../model/chat_data.dart';
 
 class MyDialog extends StatefulWidget {
@@ -25,6 +25,7 @@ class MyDialogState extends State<MyDialog> {
     return MaterialApp(
         title: widget.chatData.name,
         home: Scaffold(
+            resizeToAvoidBottomInset: false,
             appBar: AppBar(
                 title: Text(widget.chatData.name),
                 leading: IconButton(
@@ -36,27 +37,66 @@ class MyDialogState extends State<MyDialog> {
                     onPressed: () {
                       Navigator.pop(context);
                     })),
-            bottomSheet: TextField(
-              keyboardType: TextInputType.text,
-              decoration: InputDecoration(
-                  contentPadding: const EdgeInsets.all(10.0),
-                  labelText: '请输入你要发送的信息',
-                  suffixIcon: IconButton(
-                    icon: _isVisible ? const Icon(Icons.send) : Container(),
-                    onPressed: () {
-                      setState(() {
-                        widget.addMessage(_inputController.text);
-                      });
-                    },
-                  )),
-              onChanged: (value) {
-                setState(() {
-                  _isVisible = value.isNotEmpty;
-                });
-              },
-              textAlign: TextAlign.start,
-              controller: _inputController,
+            bottomSheet: Padding(
+              padding: const EdgeInsets.all(10),
+              child: TextField(
+                  controller: _inputController,
+                  textAlign: TextAlign.start,
+                  textInputAction: TextInputAction.done,
+                  decoration: InputDecoration(
+                    filled: true,
+                    enabledBorder: const OutlineInputBorder(
+                      borderSide: BorderSide(color: Color(0x00FF0000)),
+                      borderRadius: BorderRadius.all(
+                        Radius.circular(100),
+                      ),
+                    ),
+                    focusedBorder: const OutlineInputBorder(
+                      borderSide: BorderSide(color: Color(0x00000000)),
+                      borderRadius: BorderRadius.all(
+                        Radius.circular(100),
+                      ),
+                    ),
+                    contentPadding: const EdgeInsets.all(10),
+                    suffixIcon: IconButton(
+                        onPressed: () {
+                          setState(() {
+                            widget.addMessage(_inputController.text);
+                          });
+                        },
+                        icon:
+                            _isVisible ? const Icon(Icons.send) : Container()),
+                    // prefixIcon: Icon(Icons.lock),
+                    // fillColor: Colors.blue,
+                    hintText: "请输入您要发送的信息",
+                  ),
+                  onChanged: (value) {
+                    setState(() {
+                      _isVisible = value.isNotEmpty;
+                    });
+                  }),
             ),
-            body: PersonalList(chatData: widget.chatData)));
+            // TextField(
+            //   keyboardType: TextInputType.text,
+            //   decoration: InputDecoration(
+            //       contentPadding: const EdgeInsets.all(10.0),
+            //       labelText: '请输入你要发送的信息',
+            //       suffixIcon: IconButton(
+            //         icon: _isVisible ? const Icon(Icons.send) : Container(),
+            //         onPressed: () {
+            //           setState(() {
+            //             widget.addMessage(_inputController.text);
+            //           });
+            //         },
+            //       )),
+            //   onChanged: (value) {
+            //     setState(() {
+            //       _isVisible = value.isNotEmpty;
+            //     });
+            //   },
+            //   textAlign: TextAlign.start,
+            //   controller: _inputController,
+            // ),
+            body: MessageList(chatData: widget.chatData)));
   }
 }

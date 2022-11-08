@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:qq_for_flutter/pages/home/personal/personal_list/personal_list.dart';
 import '../../../../model/user.dart';
-import '../../../components/personal_list.dart';
 
 class Personal extends StatelessWidget {
   final User? myAccount;

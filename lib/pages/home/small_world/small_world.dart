@@ -18,10 +18,10 @@ class SmallWorldState extends State<SmallWorld> {
 
   void getReviews() {
     getHotReviews()
-        .then((datas) {
+        .then((response) {
           if (!_cancelConnect) {
             setState(() {
-              List<dynamic> newsList = datas!['newslist'];
+              List<dynamic> newsList = response!['newslist'];
               _hotReviews =
                   newsList.map((item) => HotReview.fromJson(item)).toList();
             });

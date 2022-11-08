@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import '../../../../model/user.dart';
 import '../../../api/network/generalNews.dart';
 import '../../../model/new.dart';
-import '../../../components/news_details.dart';
+import 'news_details/news_details.dart';
 
 class Status extends StatefulWidget {
   final User? myAccount;
