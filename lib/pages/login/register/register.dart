@@ -39,7 +39,6 @@ class RegisterState extends State<Register> {
     RegExp usernameRegExp = RegExp(r"[0-9a-zA-Z]{0,12}$");
     RegExp passwordRegExp =
         RegExp(r"(?![0-9]+$)(?![a-zA-Z]+$)[0-9A-Za-z]{8,16}$");
-
     if (nicknameRegExp.hasMatch(userInput['nickname']!) &&
         usernameRegExp.hasMatch(userInput['username']!) &&
         passwordRegExp.hasMatch(userInput['password']!)) {
@@ -48,12 +47,6 @@ class RegisterState extends State<Register> {
       });
     }
   }
-
-  //
-  // void register() async {
-  //
-  //   setCacheAccount();
-  // }
 
   @override
   Widget build(BuildContext context) {
@@ -174,50 +167,14 @@ class RegisterState extends State<Register> {
                                     hintText: "密码(8-16位数字+大小写字母)",
                                   ),
                                 ),
-                                // TextField(
-                                //   controller: _checkPasswordController,
-                                //   onChanged: formLint,
-                                //   obscureText: !_isVisible,
-                                //   textAlign: TextAlign.center,
-                                //   textInputAction: TextInputAction.done,
-                                //   maxLength: 16,
-                                //   decoration: InputDecoration(
-                                //     filled: true,
-                                //     enabledBorder: const OutlineInputBorder(
-                                //       borderSide:
-                                //           BorderSide(color: Color(0x00FF0000)),
-                                //       borderRadius: BorderRadius.all(
-                                //         Radius.circular(100),
-                                //       ),
-                                //     ),
-                                //     focusedBorder: const OutlineInputBorder(
-                                //       borderSide:
-                                //           BorderSide(color: Color(0x00000000)),
-                                //       borderRadius: BorderRadius.all(
-                                //         Radius.circular(100),
-                                //       ),
-                                //     ),
-                                //     contentPadding: const EdgeInsets.all(25),
-                                //     prefixIcon: IconButton(
-                                //       icon: const Icon(
-                                //           Icons.remove_red_eye_outlined),
-                                //       onPressed: () {
-                                //         setState(() {
-                                //           _isVisible = !_isVisible;
-                                //         });
-                                //       },
-                                //     ),
-                                //     hintText: "请确认输入密码",
-                                //   ),
-                                // )
                               ])),
                       MaterialButton(
                           onPressed: () async {
                             if (!_isFinish) {
                               return;
                             }
-                            // register();
                             Map<String, String> userInput = getUserInput();
+                            // 注册到数据库 成功后弹窗提示
 
                             await Navigator.push(
                               context,

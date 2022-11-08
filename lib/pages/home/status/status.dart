@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import '../../../../model/user.dart';
 import '../../../api/network/generalNews.dart';
 import '../../../model/new.dart';
+import '../../../utils/global_message.dart';
 import 'news_details/news_details.dart';
 
 class Status extends StatefulWidget {
@@ -19,23 +20,23 @@ class StatusState extends State<Status> {
 
   void getNews() {
     getGeneralNews()
-        .then((datas) {
+        .then((response) {
           if (!_cancelConnect) {
             setState(() {
-              List<dynamic> newsList = datas!['newslist'];
+              List<dynamic> newsList = response!['newslist'];
               _news = newsList.map((item) => New.fromJson(item)).toList();
             });
           }
         })
         .catchError((e) {
-          print("Error: $e");
+          GlobalMessage.error(e.toString());
         })
         .whenComplete(() {
-          print('新闻获取完毕');
+          GlobalMessage.success('热搜获取完毕');
         })
         .timeout(const Duration(seconds: 5))
         .catchError((timeout) {
-          print('超市：$timeout');
+          GlobalMessage.warning('超时：$timeout');
           _cancelConnect = true;
         });
   }

@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
+
 import 'package:qq_for_flutter/api/sqflite/account.dart';
 import 'package:qq_for_flutter/pages/login/register/register.dart';
 import 'package:qq_for_flutter/vendor/shared_preferences/storage.dart';
+
 import '../home/home.dart';
 import '../../../model/user.dart';
+import '../../utils/global_message.dart';
 
 class Login extends StatefulWidget {
   final User? cacheUser;
@@ -32,7 +35,7 @@ class LoginState extends State<Login> {
       _usernameController.text = widget.cacheUser?.getUsername;
       _passwordController.text = widget.cacheUser?.getPassword;
     } else {
-      () async {
+          () async {
         User? cacheAccount = await getCacheAccount();
         if (cacheAccount != null) {
           _usernameController.text = cacheAccount.getUsername;
@@ -90,14 +93,14 @@ class LoginState extends State<Login> {
                                 filled: true,
                                 enabledBorder: OutlineInputBorder(
                                   borderSide:
-                                      BorderSide(color: Color(0x00FF0000)),
+                                  BorderSide(color: Color(0x00FF0000)),
                                   borderRadius: BorderRadius.all(
                                     Radius.circular(100),
                                   ),
                                 ),
                                 focusedBorder: OutlineInputBorder(
                                   borderSide:
-                                      BorderSide(color: Color(0x00000000)),
+                                  BorderSide(color: Color(0x00000000)),
                                   borderRadius: BorderRadius.all(
                                     Radius.circular(100),
                                   ),
@@ -118,14 +121,14 @@ class LoginState extends State<Login> {
                                 filled: true,
                                 enabledBorder: const OutlineInputBorder(
                                   borderSide:
-                                      BorderSide(color: Color(0x00FF0000)),
+                                  BorderSide(color: Color(0x00FF0000)),
                                   borderRadius: BorderRadius.all(
                                     Radius.circular(100),
                                   ),
                                 ),
                                 focusedBorder: const OutlineInputBorder(
                                   borderSide:
-                                      BorderSide(color: Color(0x00000000)),
+                                  BorderSide(color: Color(0x00000000)),
                                   borderRadius: BorderRadius.all(
                                     Radius.circular(100),
                                   ),
@@ -133,7 +136,7 @@ class LoginState extends State<Login> {
                                 contentPadding: const EdgeInsets.all(25),
                                 prefixIcon: IconButton(
                                   icon:
-                                      const Icon(Icons.remove_red_eye_outlined),
+                                  const Icon(Icons.remove_red_eye_outlined),
                                   onPressed: () {
                                     setState(() {
                                       _isVisible = !_isVisible;
@@ -163,6 +166,7 @@ class LoginState extends State<Login> {
                   MaterialButton(
                       onPressed: () async {
                         if (!_checkboxSelected) {
+                          GlobalMessage.info("请勾选已已阅读服务协议");
                           return;
                         }
                         // 根据username从数据库读取账号信息
@@ -180,6 +184,7 @@ class LoginState extends State<Login> {
                             ),
                           );
                         } else {
+                          GlobalMessage.error("账号或密码错误，请重试");
                           clearInput();
                         }
                       },
@@ -208,8 +213,8 @@ class LoginState extends State<Login> {
                                 onPressed: () async {
                                   await Navigator.push(context,
                                       MaterialPageRoute(builder: (context) {
-                                    return const Register();
-                                  }));
+                                        return const Register();
+                                      }));
                                 },
                                 child: const Text("注册账号",
                                     style: TextStyle(

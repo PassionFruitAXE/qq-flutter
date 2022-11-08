@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'package:dio/dio.dart';
+import 'package:qq_for_flutter/utils/global_message.dart';
 
 Future<Map<String, dynamic>?> getGeneralNews() async {
   try {
@@ -9,7 +10,7 @@ Future<Map<String, dynamic>?> getGeneralNews() async {
         queryParameters: {"key": key, "rand": 1123});
     return json.decode(const Utf8Decoder().convert(response.data));
   } catch (e) {
-    print(e);
+    GlobalMessage.error(e.toString());
   }
   return null;
 }

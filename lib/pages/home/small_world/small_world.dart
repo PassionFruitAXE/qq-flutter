@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:qq_for_flutter/utils/global_message.dart';
 import '../../../../model/user.dart';
 import '../../../api/network/getHotReviews.dart';
 import '../../../model/hot_review.dart';
@@ -28,14 +29,14 @@ class SmallWorldState extends State<SmallWorld> {
           }
         })
         .catchError((e) {
-          print("Error: $e");
+          GlobalMessage.error(e.toString());
         })
         .whenComplete(() {
-          print('新闻获取完毕');
+          GlobalMessage.success('新闻获取完毕');
         })
         .timeout(const Duration(seconds: 5))
         .catchError((timeout) {
-          print('超市：$timeout');
+          GlobalMessage.warning('超时：$timeout');
           _cancelConnect = true;
         });
   }
