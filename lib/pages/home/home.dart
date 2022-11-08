@@ -3,7 +3,7 @@ import 'message/message.dart';
 import 'small_world/small_world.dart';
 import 'contacts/contacts.dart';
 import 'status/status.dart';
-import '../../../utils/user.dart';
+import '../../../model/user.dart';
 
 class Home extends StatefulWidget {
   final User? myAccount;

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../../../../utils/user.dart';
+import '../../../../model/user.dart';
 import '../../../components/personal_list.dart';
 
 class Personal extends StatelessWidget {

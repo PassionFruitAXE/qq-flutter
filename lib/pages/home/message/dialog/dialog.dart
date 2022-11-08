@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import '../../../../components/message_list.dart';
-import '../../../../utils/chat_data.dart';
+import '../../../../model/chat_data.dart';
 
 class MyDialog extends StatefulWidget {
   final ChatData chatData;

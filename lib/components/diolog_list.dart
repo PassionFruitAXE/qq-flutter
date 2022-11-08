@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
-
 import '../pages/home/message/dialog/dialog.dart';
-import '../utils/user.dart';
-import '../utils/chat_data.dart';
+import '../model/user.dart';
+import '../model/chat_data.dart';
 
 class DiaLogList extends StatefulWidget {
   final User? myAccount;

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import '../../../../utils/user.dart';
-import '../../../api/generalNews.dart';
-import '../../../utils/new.dart';
+import '../../../../model/user.dart';
+import '../../../api/network/generalNews.dart';
+import '../../../model/new.dart';
 import '../../../components/news_details.dart';
 
 class Status extends StatefulWidget {

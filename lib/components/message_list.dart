@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../utils/chat_data.dart';
+import '../model/chat_data.dart';
 
 class PersonalList extends StatelessWidget {
   final ChatData chatData;

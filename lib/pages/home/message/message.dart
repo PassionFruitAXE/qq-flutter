@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../../components/diolog_list.dart';
-import '../../../../utils/user.dart';
+import '../../../../model/user.dart';
 import '../personal/personal.dart';
 
 class Message extends StatelessWidget {

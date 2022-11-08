@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
-import '../../../../utils/user.dart';
-import '../../../api/getHotReviews.dart';
-import '../../../utils/hot_review.dart';
-import '../../../utils/new.dart';
-import '../../../components/news_details.dart';
+import '../../../../model/user.dart';
+import '../../../api/network/getHotReviews.dart';
+import '../../../model/hot_review.dart';
 
 class SmallWorld extends StatefulWidget {
   final User? myAccount;
