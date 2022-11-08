@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../../vendor/sqflite/database.dart';
+import '../../vendor/sqflite/domain/user.dart';
 import 'message/message.dart';
 import 'small_world/small_world.dart';
 import 'contacts/contacts.dart';

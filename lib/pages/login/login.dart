@@ -1,12 +1,10 @@
 import 'package:flutter/material.dart';
-
-import 'package:qq_for_flutter/api/sqflite/account.dart';
 import 'package:qq_for_flutter/pages/login/register/register.dart';
 import 'package:qq_for_flutter/vendor/shared_preferences/storage.dart';
-
+import '../../vendor/sqflite/controllers/account_controller.dart';
 import '../home/home.dart';
 import '../../utils/global_message.dart';
-import '../../vendor/sqflite/database.dart';
+import '../../vendor/sqflite/domain/user.dart';
 
 class Login extends StatefulWidget {
   final User? cacheUser;
@@ -170,24 +168,26 @@ class LoginState extends State<Login> {
                           return;
                         }
                         // 根据username从数据库读取账号信息
-                        User account = getAccount(_usernameController.text);
-                        if (accountJudge(account)) {
-                          // 登录成功后 缓存账号信息
-                          GlobalMessage.success("登录成功");
-                          setCacheAccount(account);
-                          await Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) {
-                                // 账号信息放在内存中 组件间传递
-                                return Home(myAccount: account);
-                              },
-                            ),
-                          );
-                        } else {
-                          GlobalMessage.error("账号或密码错误，请重试");
-                          clearInput();
-                        }
+                        AccountController.getAccount(_usernameController.text)
+                            .then((account) async {
+                          if (accountJudge(account)) {
+                            // 登录成功后 缓存账号信息
+                            GlobalMessage.success("登录成功");
+                            setCacheAccount(account);
+                            await Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) {
+                                  // 账号信息放在内存中 组件间传递
+                                  return Home(myAccount: account);
+                                },
+                              ),
+                            );
+                          } else {
+                            GlobalMessage.error("账号或密码错误，请重试");
+                            clearInput();
+                          }
+                        });
                       },
                       color: _checkboxSelected
                           ? Colors.blue

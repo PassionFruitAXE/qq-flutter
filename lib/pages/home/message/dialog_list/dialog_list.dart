@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import '../../../../../model/chat_data.dart';
-import '../../../../vendor/sqflite/database.dart';
+import '../../../../vendor/sqflite/domain/user.dart';
 import '../dialog/dialog.dart';
 
 class DiaLogList extends StatefulWidget {

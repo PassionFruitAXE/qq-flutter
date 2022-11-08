@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../../../vendor/sqflite/database.dart';
+import '../../../vendor/sqflite/domain/user.dart';
 
 class Contacts extends StatefulWidget {
   final User? myAccount;

@@ -70,7 +70,7 @@ class TableUserProvider {
   // 查询表里对于username字段的记录
   Future<User> getUserByUsername(String username) async {
     List<Map<String, dynamic>> maps = await db!.query(tableName,
-        columns: [columnId, columnPassword, columnUsername],
+        columns: [columnId, columnPassword, columnUsername, columnNickname],
         where: '$columnUsername = ?',
         whereArgs: [username]);
     if (maps.isNotEmpty) {

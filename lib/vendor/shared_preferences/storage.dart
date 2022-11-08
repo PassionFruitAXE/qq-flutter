@@ -1,5 +1,5 @@
 import 'package:shared_preferences/shared_preferences.dart';
-import '../sqflite/database.dart';
+import '../sqflite/domain/user.dart';
 
 const String account = "registerAccount";
 

@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:qq_for_flutter/utils/global_message.dart';
-import '../../../api/network/getHotReviews.dart';
+import '../../../api/getHotReviews.dart';
 import '../../../model/hot_review.dart';
-import '../../../vendor/sqflite/database.dart';
+import '../../../vendor/sqflite/domain/user.dart';
 
 class SmallWorld extends StatefulWidget {
   final User? myAccount;

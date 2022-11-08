@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
-import '../../../vendor/sqflite/database.dart';
+import 'package:qq_for_flutter/utils/global_message.dart';
+import 'package:qq_for_flutter/vendor/sqflite/controllers/account_controller.dart';
+import '../../../vendor/sqflite/domain/user.dart';
 import '../login.dart';
 
 class Register extends StatefulWidget {
@@ -11,11 +13,11 @@ class Register extends StatefulWidget {
 
 class RegisterState extends State<Register> {
   final TextEditingController _usernameController =
-      TextEditingController(text: "");
+      TextEditingController(text: "L86441933");
   final TextEditingController _passwordController =
-      TextEditingController(text: "");
+      TextEditingController(text: "Lw123456");
   final TextEditingController _nicknameController =
-      TextEditingController(text: "");
+      TextEditingController(text: "Luowei");
 
   // 密码是否可见
   bool _isVisible = false;
@@ -50,6 +52,7 @@ class RegisterState extends State<Register> {
 
   @override
   Widget build(BuildContext context) {
+    formLint("");
     return MaterialApp(
         title: "注册账号",
         home: Scaffold(
@@ -174,20 +177,29 @@ class RegisterState extends State<Register> {
                               return;
                             }
                             Map<String, String> userInput = getUserInput();
+                            User account = User(
+                                username: userInput['username']!,
+                                password: userInput['password']!,
+                                nickname: userInput['nickname']!);
                             // 注册到数据库 成功后弹窗提示
-
-                            await Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) {
-                                  return Login(
-                                      cacheUser: User(
-                                          username: userInput['username']!,
-                                          password: userInput['password']!,
-                                          nickname: userInput['nickname']!));
-                                },
-                              ),
-                            );
+                            AccountController.createAccount(account).then(
+                                (value) async {
+                              if (value != null) {
+                                GlobalMessage.success("注册成功");
+                                await Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) {
+                                      return Login(cacheUser: account);
+                                    },
+                                  ),
+                                );
+                              } else {
+                                GlobalMessage.info("用户名已经被注册过了");
+                              }
+                            }, onError: (err) {
+                              GlobalMessage.error(err.toString());
+                            });
                           },
                           color: _isFinish
                               ? Colors.blue
