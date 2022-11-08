@@ -32,7 +32,7 @@ class StatusState extends State<Status> {
           GlobalMessage.error(e.toString());
         })
         .whenComplete(() {
-          GlobalMessage.success('热搜获取完毕');
+          GlobalMessage.success('新闻获取完毕');
         })
         .timeout(const Duration(seconds: 5))
         .catchError((timeout) {
