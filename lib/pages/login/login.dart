@@ -173,6 +173,7 @@ class LoginState extends State<Login> {
                         User account = getAccount(_usernameController.text);
                         if (accountJudge(account)) {
                           // 登录成功后 缓存账号信息
+                          GlobalMessage.success("登录成功");
                           setCacheAccount(account);
                           await Navigator.push(
                             context,
