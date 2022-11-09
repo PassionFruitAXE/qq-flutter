@@ -15,6 +15,14 @@ Future<User?> createAccountService(
   return null;
 }
 
+Future<int?> updateAccountService(TableUserProvider provider, User user) async {
+  User temp = await getAccountService(provider, user.getUsername);
+  if (temp.getUsername == user.getUsername) {
+    return provider.update(user);
+  }
+  return null;
+}
+
 // 通过id删除账号
 void removeAccountService(TableUserProvider provider, int id) {
   provider.delete(id);

@@ -4,17 +4,20 @@ import 'package:qq_for_flutter/vendor/sqflite/controllers/account_controller.dar
 import '../../../vendor/sqflite/domain/user.dart';
 import '../login.dart';
 
-class Register extends StatefulWidget {
-  const Register({super.key});
+class ResetPassword extends StatefulWidget {
+  const ResetPassword({super.key});
 
   @override
-  RegisterState createState() => RegisterState();
+  ResetPasswordState createState() => ResetPasswordState();
 }
 
-class RegisterState extends State<Register> {
-  final TextEditingController _usernameController = TextEditingController();
-  final TextEditingController _passwordController = TextEditingController();
-  final TextEditingController _nicknameController = TextEditingController();
+class ResetPasswordState extends State<ResetPassword> {
+  final TextEditingController _usernameController =
+      TextEditingController(text: "L86441933");
+  final TextEditingController _oldPasswordController =
+      TextEditingController(text: "Lw123456");
+  final TextEditingController _newPasswordController =
+      TextEditingController(text: "Lw123456");
 
   // 密码是否可见
   bool _isVisible = false;
@@ -25,22 +28,20 @@ class RegisterState extends State<Register> {
   // 获取用户输入信息
   Map<String, String> getUserInput() {
     return {
-      'nickname': _nicknameController.text,
       'username': _usernameController.text,
-      'password': _passwordController.text
+      'oldPassword': _oldPasswordController.text,
+      'newPassword': _newPasswordController.text
     };
   }
 
   // 输入验证
   void formLint(String string) {
     Map<String, String> userInput = getUserInput();
-    RegExp nicknameRegExp = RegExp(r"[0-9a-zA-Z]{0,10}$");
     RegExp usernameRegExp = RegExp(r"[0-9a-zA-Z]{0,12}$");
     RegExp passwordRegExp =
         RegExp(r"(?![0-9]+$)(?![a-zA-Z]+$)[0-9A-Za-z]{8,16}$");
-    if (nicknameRegExp.hasMatch(userInput['nickname']!) &&
-        usernameRegExp.hasMatch(userInput['username']!) &&
-        passwordRegExp.hasMatch(userInput['password']!)) {
+    if (usernameRegExp.hasMatch(userInput['username']!) &&
+        passwordRegExp.hasMatch(userInput['oldPassword']!)) {
       setState(() {
         _isFinish = true;
       });
@@ -49,12 +50,13 @@ class RegisterState extends State<Register> {
 
   @override
   Widget build(BuildContext context) {
+    formLint("");
     return MaterialApp(
-        title: "注册账号",
+        title: "修改密码",
         home: Scaffold(
             resizeToAvoidBottomInset: false,
             appBar: AppBar(
-              title: const Text("注册账号"),
+              title: const Text("修改密码"),
               leading: IconButton(
                   icon: const Icon(Icons.arrow_back),
                   onPressed: () {
@@ -74,34 +76,6 @@ class RegisterState extends State<Register> {
                           child: Column(
                               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                               children: [
-                                TextField(
-                                  controller: _nicknameController,
-                                  onChanged: formLint,
-                                  textAlign: TextAlign.center,
-                                  textInputAction: TextInputAction.done,
-                                  maxLength: 10,
-                                  decoration: const InputDecoration(
-                                    filled: true,
-                                    enabledBorder: OutlineInputBorder(
-                                      borderSide:
-                                          BorderSide(color: Color(0x00FF0000)),
-                                      borderRadius: BorderRadius.all(
-                                        Radius.circular(100),
-                                      ),
-                                    ),
-                                    focusedBorder: OutlineInputBorder(
-                                      borderSide:
-                                          BorderSide(color: Color(0x00000000)),
-                                      borderRadius: BorderRadius.all(
-                                        Radius.circular(100),
-                                      ),
-                                    ),
-                                    contentPadding: EdgeInsets.all(25),
-                                    prefixIcon: Icon(Icons.lock),
-                                    // fillColor: Colors.blue,
-                                    hintText: "用户名(最高10位)",
-                                  ),
-                                ),
                                 TextField(
                                   controller: _usernameController,
                                   onChanged: formLint,
@@ -127,11 +101,40 @@ class RegisterState extends State<Register> {
                                     contentPadding: EdgeInsets.all(25),
                                     prefixIcon: Icon(Icons.lock),
                                     // fillColor: Colors.blue,
-                                    hintText: "QQ号(8-12位)",
+                                    hintText: "要修改的QQ号",
                                   ),
                                 ),
                                 TextField(
-                                  controller: _passwordController,
+                                  controller: _oldPasswordController,
+                                  onChanged: formLint,
+                                  textAlign: TextAlign.center,
+                                  textInputAction: TextInputAction.done,
+                                  maxLength: 16,
+                                  decoration: const InputDecoration(
+                                    filled: true,
+                                    enabledBorder: OutlineInputBorder(
+                                      borderSide:
+                                          BorderSide(color: Color(0x00FF0000)),
+                                      borderRadius: BorderRadius.all(
+                                        Radius.circular(100),
+                                      ),
+                                    ),
+                                    focusedBorder: OutlineInputBorder(
+                                      borderSide:
+                                          BorderSide(color: Color(0x00000000)),
+                                      borderRadius: BorderRadius.all(
+                                        Radius.circular(100),
+                                      ),
+                                    ),
+                                    contentPadding: EdgeInsets.all(25),
+                                    prefixIcon:
+                                        Icon(Icons.remove_red_eye_outlined),
+                                    // fillColor: Colors.blue,
+                                    hintText: "旧密码",
+                                  ),
+                                ),
+                                TextField(
+                                  controller: _newPasswordController,
                                   onChanged: formLint,
                                   obscureText: !_isVisible,
                                   textAlign: TextAlign.center,
@@ -163,7 +166,7 @@ class RegisterState extends State<Register> {
                                         });
                                       },
                                     ),
-                                    hintText: "密码(8-16位数字+大小写字母)",
+                                    hintText: "新密码(8-16位数字+大小写字母)",
                                   ),
                                 ),
                               ])),
@@ -172,30 +175,35 @@ class RegisterState extends State<Register> {
                             if (!_isFinish) {
                               return;
                             }
+                            // 从数据库拿到用户
+                            User user = await AccountController.getAccount(
+                                _usernameController.text);
                             Map<String, String> userInput = getUserInput();
-                            User account = User(
-                                username: userInput['username']!,
-                                password: userInput['password']!,
-                                nickname: userInput['nickname']!);
-                            // 注册到数据库 成功后弹窗提示
-                            AccountController.createAccount(account).then(
-                                (value) async {
-                              if (value != null) {
-                                GlobalMessage.success("注册成功");
-                                await Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (context) {
-                                      return Login(cacheUser: account);
-                                    },
-                                  ),
-                                );
-                              } else {
-                                GlobalMessage.info("用户名已经被注册过了");
-                              }
-                            }, onError: (err) {
-                              GlobalMessage.error(err.toString());
-                            });
+                            if (userInput['username'] == user.getUsername &&
+                                userInput['oldPassword'] == user.getPassword) {
+                              user.setPassword = userInput['newPassword']!;
+                              // 验证成功 修改密码
+                              AccountController.updateAccount(user)
+                                  .then((count) async {
+                                if (count != 0) {
+                                  GlobalMessage.success("修改成功");
+                                  await Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) {
+                                        return Login(cacheUser: user);
+                                      },
+                                    ),
+                                  );
+                                } else {
+                                  GlobalMessage.error("修改失败");
+                                }
+                              }).catchError((err) {
+                                GlobalMessage.error(err.toString());
+                              });
+                            }else {
+                              GlobalMessage.error("旧密码错误，请重试");
+                            }
                           },
                           color: _isFinish
                               ? Colors.blue
@@ -207,7 +215,7 @@ class RegisterState extends State<Register> {
                                       : const Color.fromARGB(
                                           255, 115, 184, 240))),
                           height: 100,
-                          child: const Text('注册',
+                          child: const Text('修改密码',
                               style: TextStyle(color: Colors.white))),
                     ]))));
   }

@@ -31,6 +31,17 @@ class AccountController {
     return temp;
   }
 
+  static Future<int?> updateAccount(User user) async {
+    TableUserProvider userProvider = TableUserProvider();
+    const String filename = "qq_flutter.db";
+    String databasePath = await getDatabasesPath();
+    String path = join(databasePath, filename);
+    await userProvider.open(path);
+    int? temp = await updateAccountService(userProvider, user);
+    userProvider.close();
+    return temp;
+  }
+
   static void removeAccount(int id) async {
     TableUserProvider userProvider = TableUserProvider();
     const String filename = "qq_flutter.db";

@@ -23,6 +23,8 @@ class User {
 
   get getNickname => _nickname;
 
+  set setPassword(String password) => _password = password;
+
   User({this.id, username, password, nickname}) {
     _username = username;
     _password = password;
@@ -87,7 +89,7 @@ class TableUserProvider {
   // 修改表里的某条记录
   Future<int> update(User user) async {
     return await db!.update(tableName, user.toMap(),
-        where: '$columnId=>', whereArgs: [user.id]);
+        where: '$columnId = ?', whereArgs: [user.id]);
   }
 
   //关闭数据库

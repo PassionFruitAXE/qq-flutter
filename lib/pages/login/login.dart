@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:qq_for_flutter/pages/login/register/register.dart';
+import 'package:qq_for_flutter/pages/login/reset_password/reset_password.dart';
 import 'package:qq_for_flutter/vendor/shared_preferences/storage.dart';
 import '../../vendor/sqflite/controllers/account_controller.dart';
 import '../home/home.dart';
@@ -215,17 +216,23 @@ class LoginState extends State<Login> {
                                 onPressed: () async {
                                   await Navigator.push(context,
                                       MaterialPageRoute(builder: (context) {
+                                    return const ResetPassword();
+                                  }));
+                                },
+                                child: const Text("修改密码",
+                                    style: TextStyle(
+                                        fontWeight: FontWeight.w500))),
+                            MaterialButton(
+                                onPressed: () async {
+                                  await Navigator.push(context,
+                                      MaterialPageRoute(builder: (context) {
                                     return const Register();
                                   }));
                                 },
                                 child: const Text("注册账号",
                                     style: TextStyle(
                                         fontWeight: FontWeight.w500))),
-                            MaterialButton(
-                                onPressed: () {},
-                                child: const Text("更多选项",
-                                    style: TextStyle(
-                                        fontWeight: FontWeight.w500))),
+
                             // Text('新用户注册', style: TextStyle(fontWeight: FontWeight.w500)),
                           ]))
                 ])));
