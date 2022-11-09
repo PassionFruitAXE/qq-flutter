@@ -15,12 +15,20 @@ class RegisterState extends State<Register> {
   final TextEditingController _usernameController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
   final TextEditingController _nicknameController = TextEditingController();
+  int _avatarSelectedIndex = 0;
 
   // 密码是否可见
   bool _isVisible = false;
 
   // 是否正确填写用户名密码
   bool _isFinish = false;
+
+  final List<String> _avatarURls = [
+    "images/头像1.jpg",
+    "images/头像2.jpg",
+    "images/头像3.jpg",
+    "images/头像4.jpg"
+  ];
 
   // 获取用户输入信息
   Map<String, String> getUserInput() {
@@ -66,8 +74,30 @@ class RegisterState extends State<Register> {
                 child: Column(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
-                      const Image(
-                          image: AssetImage('images/QQ.png'), width: 120.0),
+                      Expanded(
+                          child: Center(
+                              child: SizedBox(
+                        height: 60,
+                        width: 368,
+                        child: ListView.builder(
+                          scrollDirection: Axis.horizontal,
+                          itemCount: _avatarURls.length,
+                          itemBuilder: (_, index) => MaterialButton(
+                            onPressed: () {
+                              setState(() {
+                                _avatarSelectedIndex = index;
+                              });
+                            },
+                            color: _avatarSelectedIndex == index
+                                ? Colors.blue
+                                : Colors.white,
+                            child: Image(
+                                image: AssetImage(_avatarURls[index]),
+                                height: 60.0,
+                                width: 60.0),
+                          ),
+                        ),
+                      ))),
                       Padding(
                           padding:
                               const EdgeInsets.only(left: 30.0, right: 30.0),
@@ -176,7 +206,8 @@ class RegisterState extends State<Register> {
                             User account = User(
                                 username: userInput['username']!,
                                 password: userInput['password']!,
-                                nickname: userInput['nickname']!);
+                                nickname: userInput['nickname']!,
+                                avatarURL: _avatarURls[_avatarSelectedIndex]);
                             // 注册到数据库 成功后弹窗提示
                             AccountController.createAccount(account).then(
                                 (value) async {

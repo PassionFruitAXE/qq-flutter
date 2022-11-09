@@ -3,6 +3,7 @@ import 'package:fluttertoast/fluttertoast.dart';
 
 class GlobalMessage {
   static void success(String message, [ToastGravity? gravity]) {
+    message = message.length > 100 ? message.substring(0, 100) : message;
     Fluttertoast.showToast(
         msg: message,
         toastLength: Toast.LENGTH_SHORT,
@@ -14,6 +15,7 @@ class GlobalMessage {
   }
 
   static void error(String message, [ToastGravity? gravity]) {
+    message = message.length > 100 ? message.substring(0, 100) : message;
     Fluttertoast.showToast(
         msg: message,
         toastLength: Toast.LENGTH_SHORT,
@@ -25,6 +27,7 @@ class GlobalMessage {
   }
 
   static void warning(String message, [ToastGravity? gravity]) {
+    message = message.length > 100 ? message.substring(0, 100) : message;
     Fluttertoast.showToast(
         msg: message,
         toastLength: Toast.LENGTH_SHORT,
@@ -36,6 +39,7 @@ class GlobalMessage {
   }
 
   static void info(String message, [ToastGravity? gravity]) {
+    message = message.length > 100 ? message.substring(0, 100) : message;
     Fluttertoast.showToast(
         msg: message,
         toastLength: Toast.LENGTH_SHORT,

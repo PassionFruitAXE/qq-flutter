@@ -30,16 +30,21 @@ class StatusState extends State<Status> {
             // 缓存前五条
             setCacheNews(cacheNews ?? news.sublist(0, 5));
             setState(() {
-              _news =
-                  cacheNews == null ? news : [...cacheNews, ...news.sublist(5)];
+              _news = news;
             });
           }
         })
-        .catchError((e) {
-          GlobalMessage.error(e.toString());
-        })
-        .whenComplete(() {
-          GlobalMessage.success('新闻获取完毕');
+        .catchError((e) async {
+          List<New>? cacheNews = await getCacheNews();
+          cacheNews?.forEach((item) {
+            item.picUrl = "images/加载中.png";
+          });
+          if (cacheNews != null) {
+            setState(() {
+              _news = cacheNews;
+            });
+          }
+          GlobalMessage.error("网络请求失败 错误原因${e.toString()}");
         })
         .timeout(const Duration(seconds: 5))
         .catchError((timeout) {
@@ -86,11 +91,16 @@ class StatusState extends State<Status> {
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   Center(
-                                      child: FadeInImage.assetNetwork(
-                                          placeholder: "images/加载中.png",
-                                          image:
-                                              (_news[index].picUrl as String),
-                                          fit: BoxFit.fitWidth)),
+                                      child: _news[index].picUrl ==
+                                              "images/加载中.png"
+                                          ? const Image(
+                                              image:
+                                                  AssetImage('images/加载中.png'))
+                                          : FadeInImage.assetNetwork(
+                                              placeholder: "images/加载中.png",
+                                              image: (_news[index].picUrl
+                                                  as String),
+                                              fit: BoxFit.fitWidth)),
                                   Padding(
                                       padding: const EdgeInsets.all(10.0),
                                       child: Text(_news[index].title.toString(),

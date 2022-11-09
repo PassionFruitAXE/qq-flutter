@@ -20,8 +20,8 @@ class Message extends StatelessWidget {
                   padding: const EdgeInsets.all(3.0),
                   width: 100,
                   height: 100,
-                  child: const CircleAvatar(
-                      backgroundImage: AssetImage('images/头像2.jpg')),
+                  child: CircleAvatar(
+                      backgroundImage: AssetImage(myAccount?.getAvatarUrl)),
                 ),
                 onPressed: () async {
                   await Navigator.push(

@@ -10,12 +10,15 @@ const String columnUsername = 'username';
 const String columnPassword = 'password';
 // nickname字段
 const String columnNickname = 'nickname';
+// avatarURL字段
+const String columnAvatarURL = 'avatarURL';
 
 class User {
   int? id;
   String? _username;
   String? _password;
   String? _nickname;
+  String? _avatarURL;
 
   get getUsername => _username;
 
@@ -23,19 +26,23 @@ class User {
 
   get getNickname => _nickname;
 
+  get getAvatarUrl => _avatarURL;
+
   set setPassword(String password) => _password = password;
 
-  User({this.id, username, password, nickname}) {
+  User({this.id, username, password, nickname, avatarURL}) {
     _username = username;
     _password = password;
     _nickname = nickname;
+    _avatarURL = avatarURL;
   }
 
   Map<String, dynamic> toMap() => (<String, dynamic>{
         columnId: id,
         columnUsername: _username,
         columnPassword: _password,
-        columnNickname: _nickname
+        columnNickname: _nickname,
+        columnAvatarURL: _avatarURL
       });
 
   User.fromMap(Map<String, dynamic> map) {
@@ -43,6 +50,7 @@ class User {
     _username = map[columnUsername];
     _password = map[columnPassword];
     _nickname = map[columnNickname];
+    _avatarURL = map[columnAvatarURL];
   }
 }
 
@@ -58,7 +66,8 @@ class TableUserProvider {
         $columnId integer primary key autoincrement,
         $columnUsername text not null,
         $columnPassword text not null,
-        $columnNickname text not null)
+        $columnNickname text not null,
+        $columnAvatarURL text not null)
       ''');
     });
   }
@@ -72,7 +81,13 @@ class TableUserProvider {
   // 查询表里对于username字段的记录
   Future<User> getUserByUsername(String username) async {
     List<Map<String, dynamic>> maps = await db!.query(tableName,
-        columns: [columnId, columnPassword, columnUsername, columnNickname],
+        columns: [
+          columnId,
+          columnPassword,
+          columnUsername,
+          columnNickname,
+          columnAvatarURL
+        ],
         where: '$columnUsername = ?',
         whereArgs: [username]);
     if (maps.isNotEmpty) {

@@ -1,6 +1,5 @@
 import 'dart:convert';
 import 'package:dio/dio.dart';
-import '../vendor/fluttertoast/global_message.dart';
 
 Future<Map<String, dynamic>?> getHotReviews() async {
   try {
@@ -10,7 +9,7 @@ Future<Map<String, dynamic>?> getHotReviews() async {
         queryParameters: {"key": key});
     return json.decode(const Utf8Decoder().convert(response.data));
   } catch (e) {
-    GlobalMessage.error(e.toString());
+    // GlobalMessage.error(e.toString());
   }
   return null;
 }
