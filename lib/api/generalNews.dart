@@ -1,6 +1,6 @@
 import 'dart:convert';
 import 'package:dio/dio.dart';
-import 'package:qq_for_flutter/utils/global_message.dart';
+import 'package:qq_for_flutter/vendor/fluttertoast/global_message.dart';
 
 Future<Map<String, dynamic>?> getGeneralNews() async {
   try {

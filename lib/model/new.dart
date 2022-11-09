@@ -6,6 +6,7 @@ class New {
   String? source;
   String? picUrl;
   String? url;
+
   New(
       {this.id,
       this.ctime,
@@ -14,14 +15,24 @@ class New {
       this.source,
       this.picUrl,
       this.url});
-  factory New.fromJson(Map<String, dynamic> json) {
-    return New(
-        id: json["id"],
-        ctime: json["ctime"],
-        title: json["title"],
-        description: json["description"],
-        source: json["source"],
-        picUrl: json["picUrl"],
-        url: json["url"]);
+
+  Map<String, dynamic> toMap() => (<String, dynamic>{
+        "id": id,
+        "ctime": ctime,
+        "title": title,
+        "description": description,
+        "source": source,
+        "picUrl": picUrl,
+        "url": url,
+      });
+
+  New.fromMap(Map<String, dynamic> map) {
+    id = map["id"];
+    ctime = map["ctime"];
+    title = map["title"];
+    description = map["description"];
+    source = map["source"];
+    picUrl = map["picUrl"];
+    url = map["url"];
   }
 }

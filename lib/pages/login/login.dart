@@ -3,7 +3,7 @@ import 'package:qq_for_flutter/pages/login/register/register.dart';
 import 'package:qq_for_flutter/vendor/shared_preferences/storage.dart';
 import '../../vendor/sqflite/controllers/account_controller.dart';
 import '../home/home.dart';
-import '../../utils/global_message.dart';
+import '../../vendor/fluttertoast/global_message.dart';
 import '../../vendor/sqflite/domain/user.dart';
 
 class Login extends StatefulWidget {
@@ -185,6 +185,7 @@ class LoginState extends State<Login> {
                             );
                           } else {
                             GlobalMessage.error("账号或密码错误，请重试");
+                            removeCacheAccount();
                             clearInput();
                           }
                         });

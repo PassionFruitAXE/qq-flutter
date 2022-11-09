@@ -1,6 +1,6 @@
 import 'dart:convert';
 import 'package:dio/dio.dart';
-import '../utils/global_message.dart';
+import '../vendor/fluttertoast/global_message.dart';
 
 Future<Map<String, dynamic>?> getHotReviews() async {
   try {

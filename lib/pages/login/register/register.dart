@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:qq_for_flutter/utils/global_message.dart';
+import 'package:qq_for_flutter/vendor/fluttertoast/global_message.dart';
 import 'package:qq_for_flutter/vendor/sqflite/controllers/account_controller.dart';
 import '../../../vendor/sqflite/domain/user.dart';
 import '../login.dart';

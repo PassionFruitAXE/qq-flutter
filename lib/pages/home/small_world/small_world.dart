@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:qq_for_flutter/utils/global_message.dart';
+import 'package:qq_for_flutter/vendor/fluttertoast/global_message.dart';
 import '../../../api/getHotReviews.dart';
 import '../../../model/hot_review.dart';
 import '../../../vendor/sqflite/domain/user.dart';

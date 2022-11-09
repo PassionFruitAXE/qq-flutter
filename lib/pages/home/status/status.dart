@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import '../../../api/generalNews.dart';
 import '../../../model/new.dart';
-import '../../../utils/global_message.dart';
+import '../../../vendor/fluttertoast/global_message.dart';
+import '../../../vendor/shared_preferences/storage.dart';
 import '../../../vendor/sqflite/domain/user.dart';
 import 'news_details/news_details.dart';
 
@@ -20,11 +21,17 @@ class StatusState extends State<Status> {
 
   void getNews() {
     getGeneralNews()
-        .then((response) {
+        .then((response) async {
+          // 读取本地五条缓存新闻
+          List<New>? cacheNews = await getCacheNews();
           if (!_cancelConnect) {
+            List<dynamic> temp = response!['newslist'];
+            List<New> news = temp.map((item) => New.fromMap(item)).toList();
+            // 缓存前五条
+            setCacheNews(cacheNews ?? news.sublist(0, 5));
             setState(() {
-              List<dynamic> newsList = response!['newslist'];
-              _news = newsList.map((item) => New.fromJson(item)).toList();
+              _news =
+                  cacheNews == null ? news : [...cacheNews, ...news.sublist(5)];
             });
           }
         })
@@ -57,6 +64,7 @@ class StatusState extends State<Status> {
             leading: IconButton(
                 icon: const Icon(Icons.assistant_photo_outlined),
                 onPressed: () {
+                  removeCacheNews();
                   getNews();
                 }),
           ),
