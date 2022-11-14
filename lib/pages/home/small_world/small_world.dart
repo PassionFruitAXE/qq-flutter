@@ -31,9 +31,6 @@ class SmallWorldState extends State<SmallWorld> {
         .catchError((e) {
           GlobalMessage.error(e.toString());
         })
-        .whenComplete(() {
-          GlobalMessage.success('热搜获取完毕');
-        })
         .timeout(const Duration(seconds: 5))
         .catchError((timeout) {
           GlobalMessage.warning('超时：$timeout');
