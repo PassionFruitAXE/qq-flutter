@@ -17,6 +17,9 @@ class Login extends StatefulWidget {
 }
 
 class LoginState extends State<Login> {
+  final usernameKey = const Key("usernameKey");
+  final passwordKey = const Key("passwordKey");
+  final loginButtonKey = const Key("loginButtonKey");
   final TextEditingController _usernameController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
 
@@ -84,6 +87,7 @@ class LoginState extends State<Login> {
                           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                           children: [
                             TextField(
+                              key: usernameKey,
                               controller: _usernameController,
                               textAlign: TextAlign.center,
                               textInputAction: TextInputAction.done,
@@ -111,6 +115,7 @@ class LoginState extends State<Login> {
                               ),
                             ),
                             TextField(
+                              key: passwordKey,
                               controller: _passwordController,
                               obscureText: !_isVisible,
                               textAlign: TextAlign.center,
