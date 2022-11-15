@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import '../../../api/generalNews.dart';
 import '../../../model/new.dart';
@@ -36,9 +37,6 @@ class StatusState extends State<Status> {
         })
         .catchError((e) async {
           List<New>? cacheNews = await getCacheNews();
-          cacheNews?.forEach((item) {
-            item.picUrl = "images/加载中.png";
-          });
           if (cacheNews != null) {
             setState(() {
               _news = cacheNews;
@@ -91,16 +89,16 @@ class StatusState extends State<Status> {
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   Center(
-                                      child: _news[index].picUrl ==
-                                              "images/加载中.png"
-                                          ? const Image(
+                                    child: CachedNetworkImage(
+                                      imageUrl: _news[index].picUrl as String,
+                                      placeholder: (context, url) =>
+                                          const CircularProgressIndicator(),
+                                      errorWidget: (context, url, error) =>
+                                          const Image(
                                               image:
-                                                  AssetImage('images/加载中.png'))
-                                          : FadeInImage.assetNetwork(
-                                              placeholder: "images/加载中.png",
-                                              image: (_news[index].picUrl
-                                                  as String),
-                                              fit: BoxFit.fitWidth)),
+                                                  AssetImage('images/加载中.png')),
+                                    ),
+                                  ),
                                   Padding(
                                       padding: const EdgeInsets.all(10.0),
                                       child: Text(_news[index].title.toString(),
